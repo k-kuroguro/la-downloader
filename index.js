@@ -5,6 +5,15 @@ const process = require('process');
 const path = require('path');
 const { PDFDocument } = require("pdf-lib");
 
+const waitKey = () => {
+   process.stdin.resume();
+   return new Promise(
+      res => process.stdin.once('data', res)
+   ).finally(
+      () => process.stdin.pause()
+   );
+};
+
 const questions = [
    {
       type: 'input',
@@ -58,8 +67,15 @@ inquirer.prompt(questions).then(async answers => {
             break;
          }
       }
-      fs.writeFileSync(`${process.env.USERPROFILE}${path.sep}Downloads${path.sep}${answers.filename}`, await doc.save());
+      const pdfPath = `${process.env.USERPROFILE}${path.sep}Downloads${path.sep}${answers.filename}`;
+      fs.writeFileSync(pdfPath, await doc.save());
+      console.log(`Saved at ${pdfPath}`);
    } catch (e) {
       console.log(e.message ?? e);
    }
+}).catch(async e => {
+   console.log(e.message ?? e);
+}).finally(async () => {
+   console.log('Press enter key to close this window.');
+   await waitKey();
 });
