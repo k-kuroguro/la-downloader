@@ -1,0 +1,20 @@
+{
+   "name": "la-downloader",
+   "version": "1.0.0",
+   "description": "Download pdf file from (protected) google drive.",
+   "main": "index.js",
+   "scripts": {
+      "exe": "npx nexe index.js --target windows-x64-14.15.3 --output dist/la_downloader.exe",
+      "test": "echo \"Error: no test specified\" && exit 1"
+   },
+   "author": "Riku Kanayama (k_kuroguro)",
+   "license": "MIT",
+   "dependencies": {
+      "axios": "^0.27.2",
+      "inquirer": "^8.2.4",
+      "pdf-lib": "^1.17.1"
+   },
+   "devDependencies": {
+      "nexe": "^4.0.0-beta.19"
+   }
+}
